@@ -18,7 +18,7 @@
 
 ## Description
 
-An Lock Free ID Generator for Golang implementation.
+An **Lock Free** ID Generator for Golang implementation.
 
 ![file](https://images.godruoyi.com/logos/201908/13/_1565672621_LPW65Pi8cG.png)
 
@@ -40,6 +40,14 @@ Based on this, we created this package and integrated multiple sequence-number p
 
 > Each provider only needs to ensure that the serial number generated in the same millisecond is different. You can get a unique ID.
 
+## Feature
+
+- ✅ Lock Free
+- 🎈 Zero configuration, out of the box
+- 🚀 Concurrency safety
+- 🌵 Support private ip to machineid
+- 🐡 Support custom sequence resolver
+
 ## Installation
 
 ```shell
@@ -51,6 +59,8 @@ $ go get github.com/godruoyi/go-snowflake
 1. simple to use.
 
 ```go
+package main
+
 import (
     "fmt"
 
@@ -67,6 +77,8 @@ func main() {
 2. Specify the MachineID.
 
 ```go
+package main
+
 import (
     "fmt"
 
@@ -75,6 +87,10 @@ import (
 
 func main() {
     snowflake.SetMachineID(1)
+
+    // Or set private ip to machineid, testing...
+    // snowflake.SetMachineID(snowflake.PrivateIPToMachineID())
+
     id := snowflake.ID()
     fmt.Println(id)
 }
@@ -83,6 +99,8 @@ func main() {
 3. Specify start time.
 
 ```go
+package main
+
 import (
     "fmt"
     "time"
@@ -100,6 +118,8 @@ func main() {
 4. Parse ID.
 
 ```go
+package main
+
 import (
     "fmt"
     "time"
@@ -111,11 +131,11 @@ func main() {
     id := snowflake.ID()
     sid := snowflake.ParseID(id)
 
-    fmt.Println(sid.ID)             //
-    fmt.Println(sid.MachineID)      //
-    fmt.Println(sid.Sequence)       //
-    fmt.Println(sid.Timestamp)      //
-    fmt.Println(sid.GenerateTime()) //
+    fmt.Println(sid.ID)             // 132271570944000000
+    fmt.Println(sid.MachineID)      // 0
+    fmt.Println(sid.Sequence)       // 0
+    fmt.Println(sid.Timestamp)      // 31536000000
+    fmt.Println(sid.GenerateTime()) // 2009-11-10 23:00:00 +0000 UTC
 }
 ```
 
@@ -124,6 +144,8 @@ func main() {
 > ⚠️⚠️ All SetXXX method is thread-unsafe, recommended you call him in the main function.
 
 ```go
+package main
+
 import (
     "fmt"
     "time"
@@ -148,11 +170,11 @@ func submitOrder(w http.ResponseWriter, req *http.Request) {
 
 ## Advanced
 
-1. Custom sequence resolver.
-
-You can customize the sequence-number resolver by following way:
+Custom sequence resolver. you can customize the sequence-number resolver by following way:
 
 ```go
+package main
+
 import (
     "fmt"
     "time"
