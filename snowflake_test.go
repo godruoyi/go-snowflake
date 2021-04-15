@@ -55,7 +55,7 @@ func TestSetStartTime(t *testing.T) {
 	})
 
 	t.Run("Default start time", func(tt *testing.T) {
-		defaultTime := time.Date(2014, 9, 1, 0, 0, 0, 0, time.UTC)
+		defaultTime := time.Date(2008, 11, 10, 23, 0, 0, 0, time.UTC)
 		defaultNano := defaultTime.UTC().UnixNano() / 1e6
 
 		sid := snowflake.ParseID(snowflake.ID())

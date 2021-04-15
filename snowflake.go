@@ -25,13 +25,14 @@ const (
 //   AtomicResolver : base sync/atomic (by default).
 type SequenceResolver func(ms int64) (uint16, error)
 
-// default start time is 2014-09-01 00:00:00UTC
+// default start time is 2008-11-10 23:00:00 UTC, why ? In the playground the time begins at 2009-11-10 23:00:00 UTC.
+// It's can run on golang playground.
 // default machineID is 0
 // default resolver is AtomicResolver
 var (
 	resolver  SequenceResolver
 	machineID = 0
-	startTime = time.Date(2014, 9, 1, 0, 0, 0, 0, time.UTC)
+	startTime = time.Date(2008, 11, 10, 23, 0, 0, 0, time.UTC)
 )
 
 // ID use ID to generate snowflake id and it will ignore error. if you want error info, you need use NextID method.
