@@ -194,9 +194,16 @@ func TestParseID(t *testing.T) {
 }
 
 func TestSID_GenerateTime(t *testing.T) {
-	sid := snowflake.ParseID(snowflake.ID())
+	snowflake.SetSequenceResolver(snowflake.AtomicResolver)
+	a, e := snowflake.NextID()
+	if e != nil {
+		t.Error(e)
+		return
+	}
+
+	sid := snowflake.ParseID(a)
 
 	if sid.GenerateTime().UTC().Second() != time.Now().UTC().Second() {
-		t.Error("The id generate time should be equal")
+		t.Error("The id generate time should be equal current time")
 	}
 }
