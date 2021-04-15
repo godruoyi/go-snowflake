@@ -61,12 +61,12 @@ func NextID() (uint64, error) {
 		}
 	}
 
-	df := int(elapsedTime(startTime))
+	df := int(elapsedTime(c, startTime))
 	if df < 0 || df > MaxTimestamp {
 		return 0, errors.New("The maximum life cycle of the snowflake algorithm is 2^41-1(millis), please check starttime")
 	}
 
-	id := uint64(df<<timestampMoveLength | machineID<<machineIDMoveLength | int(seq))
+	id := uint64((df << timestampMoveLength) | (machineID << machineIDMoveLength) | int(seq))
 	return id, nil
 }
 
@@ -89,7 +89,7 @@ func SetStartTime(s time.Time) {
 	}
 
 	// Because s must after now, so the `df` not < 0.
-	df := elapsedTime(s)
+	df := elapsedTime(currentMillis(), s)
 	if df > MaxTimestamp {
 		panic("The maximum life cycle of the snowflake algorithm is 69 years")
 	}
@@ -163,8 +163,8 @@ func callSequenceResolver() SequenceResolver {
 	return resolver
 }
 
-func elapsedTime(s time.Time) int64 {
-	return currentMillis() - s.UTC().UnixNano()/1e6
+func elapsedTime(nowms int64, s time.Time) int64 {
+	return nowms - s.UTC().UnixNano()/1e6
 }
 
 // currentMillis get current millisecond.

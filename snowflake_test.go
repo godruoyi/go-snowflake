@@ -2,6 +2,7 @@ package snowflake_test
 
 import (
 	"errors"
+	"sync"
 	"testing"
 	"time"
 
@@ -13,6 +14,54 @@ func TestID(t *testing.T) {
 
 	if id <= 0 {
 		t.Error("The snowflake should't < 0.")
+	}
+
+	id2 := 1644633515267981312
+	df := 392111185853
+	if id2 != ((df << (snowflake.MachineIDLength + snowflake.SequenceLength)) | 0 | 0) {
+		t.Error("Create snowflake should be equal 1644633515267981312")
+	}
+
+	mp := make(map[uint64]bool)
+	for i := 0; i < 100000; i++ {
+		id, e := snowflake.NextID()
+		if e != nil {
+			t.Error(e)
+			continue
+		}
+		if _, ok := mp[id]; ok {
+			t.Error("ID should't repeat", id)
+			break
+		}
+		mp[id] = true
+	}
+}
+
+func TestID_bitch(t *testing.T) {
+	le := 100000
+	ch := make(chan uint64, le)
+	var wg sync.WaitGroup
+	for i := 0; i < le; i++ {
+		wg.Add(1)
+		go func() {
+			defer wg.Done()
+			id := snowflake.ID()
+			ch <- id
+		}()
+	}
+	wg.Wait()
+	close(ch)
+
+	mp := make(map[uint64]bool)
+	for id := range ch {
+		if _, ok := mp[id]; ok {
+			t.Error("It should not be repeated")
+			break
+		}
+		mp[id] = true
+	}
+	if len(mp) != le {
+		t.Error("map length should be equal", le)
 	}
 }
 
