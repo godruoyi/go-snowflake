@@ -16,12 +16,6 @@ func TestID(t *testing.T) {
 		t.Error("The snowflake should't < 0.")
 	}
 
-	id2 := 1644633515267981312
-	df := 392111185853
-	if id2 != ((df << (snowflake.MachineIDLength + snowflake.SequenceLength)) | 0 | 0) {
-		t.Error("Create snowflake should be equal 1644633515267981312")
-	}
-
 	mp := make(map[uint64]bool)
 	for i := 0; i < 100000; i++ {
 		id, e := snowflake.NextID()
