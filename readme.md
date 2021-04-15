@@ -4,8 +4,8 @@
   </p>
   <p align="center">An Lock Free ID Generator for Golang based on Snowflake Algorithm (Twitter announced).</p>
   <p align="center">
-    <a href="https://github.com/godruoyi/go-snowflake/actions?query=workflow%3Arun+tests">
-      <image src="https://github.com/godruoyi/go-snowflake/actions?query=workflow%3Arun+tests" alt="test">
+    <a href="https://github.com/godruoyi/go-snowflake/actions?workflow=run%20tests">
+      <image src="https://github.com/godruoyi/go-snowflake/workflows/run%20tests/badge.svg" alt="test">
     </a>
     <a href="https://goreportcard.com/report/github.com/godruoyi/go-snowflake">
       <image src="https://goreportcard.com/badge/github.com/godruoyi/go-snowflake" alt="Go report">
