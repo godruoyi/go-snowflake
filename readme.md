@@ -36,7 +36,7 @@ So if you want use the snowflake algorithm to generate unique ID, You must ensur
 
 Based on this, we created this package and integrated multiple sequence-number providers into it.
 
-* AtomicResolver (base sync/atmoic)
+* AtomicResolver (base sync/atomic)
 
 > Each provider only needs to ensure that the serial number generated in the same millisecond is different. You can get a unique ID.
 
@@ -54,7 +54,7 @@ Based on this, we created this package and integrated multiple sequence-number p
 $ go get github.com/godruoyi/go-snowflake
 ```
 
-## Useage
+## Usage
 
 1. simple to use.
 
