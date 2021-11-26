@@ -84,7 +84,7 @@ func SetStartTime(s time.Time) {
 		panic("The start time cannot be a zero value")
 	}
 
-	if s.After(time.Now()) {
+	if s.After(time.Now().UTC()) {
 		panic("The s cannot be greater than the current millisecond")
 	}
 
