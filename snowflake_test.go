@@ -156,8 +156,8 @@ func TestSetMachineID(t *testing.T) {
 		defer func() {
 			if err := recover(); err == nil {
 				tt.Error("Should throw a error")
-			} else if err.(string) != "The machineid cannot be greater than 1023" {
-				tt.Error("The error message should be eq 「The machineid cannot be greater than 1023」")
+			} else if err.(string) != "The machineID cannot be greater than 1023" {
+				tt.Error("The error message should be eq 「The machineID cannot be greater than 1023」")
 			}
 		}()
 

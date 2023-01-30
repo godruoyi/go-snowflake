@@ -18,7 +18,7 @@ func AtomicResolver(ms int64) (uint16, error) {
 		}
 
 		if last == ms {
-			seq = MaxSequence & (localSeq + 1)
+			seq = uint32(MaxSequence) & (localSeq + 1)
 			if seq == 0 {
 				return MaxSequence, nil
 			}
